@@ -1,8 +1,11 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 import { userRouter } from './routes/userRouter';
 import { STATUS_MESSAGES } from './utils/constants';
+import dotenv from 'dotenv';
 
-const PORT = 3000;
+dotenv.config();
+
+const PORT = process.env.PORT || 3000;
 
 const server = createServer((req: IncomingMessage, res: ServerResponse) => {
   if (req.url?.startsWith('/api/users')) {
