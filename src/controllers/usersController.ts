@@ -3,6 +3,7 @@ import { validate as isUuid } from 'uuid';
 import { userService } from '../services/usersService';
 import { sendJsonResponse, getRequestBody } from '../utils/helpers';
 import { STATUS_MESSAGES } from '../utils/constants';
+import { User } from '../models/UserModel';
 
 export const userController = {
   getAllUsers: (res: ServerResponse) => {
@@ -28,7 +29,7 @@ export const userController = {
   },
 
   createUser: async (req: IncomingMessage, res: ServerResponse) => {
-    const body = await getRequestBody(req);
+    const body = await getRequestBody<User>(req);
 
     const user = userService.createUser(body);
     if (!user) {
@@ -41,7 +42,7 @@ export const userController = {
   },
 
   updateUser: async (id: string, req: IncomingMessage, res: ServerResponse) => {
-    const body = await getRequestBody(req);
+    const body = await getRequestBody<User>(req);
     if (!isUuid(id)) {
       return sendJsonResponse(res, 400, {
         message: STATUS_MESSAGES.INVALID_ID,

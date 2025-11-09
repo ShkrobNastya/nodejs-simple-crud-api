@@ -1,20 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import { User } from '../models/UserModel';
 
-export const users: User[] = [
-  {
-    id: 'cfdbcfb6-f25c-4eed-bb1b-14442fc3b8a5',
-    username: 'Dary',
-    age: 12,
-    hobbies: ['hob1'],
-  },
-  {
-    id: '2',
-    username: 'Dary',
-    age: 12,
-    hobbies: ['hob1'],
-  },
-];
+export const users: User[] = [];
 
 export const getAllUsers = (): User[] => users;
 

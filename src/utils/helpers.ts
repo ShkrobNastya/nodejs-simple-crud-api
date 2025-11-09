@@ -9,7 +9,7 @@ export const sendJsonResponse = <T>(
   res.end(JSON.stringify(data));
 };
 
-export const getRequestBody = (req: IncomingMessage): Promise<any> => {
+export const getRequestBody = <T>(req: IncomingMessage): Promise<T> => {
   return new Promise((resolve, reject) => {
     let body = '';
 
