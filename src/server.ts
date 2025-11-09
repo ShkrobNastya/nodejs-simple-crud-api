@@ -1,20 +1,18 @@
-import http from 'http';
-import { userController } from './controllers/usersController';
+import { createServer, IncomingMessage, ServerResponse } from 'http';
+import { userRouter } from './routes/userRouter';
+import { STATUS_MESSAGES } from './utils/constants';
 
-http
-  .createServer(function (req, res) {
-    res.setHeader('Content-Type', 'text/html; charset=utf-8;');
+const PORT = 3000;
 
-    if (req.url === '/') {
-      userController.getAllUsers(res);
-    } else if (req.url == '/22') {
-      userController.getUser('2', res);
-    } else if (req.url == '/33') {
-      userController.deleteUser('1', res);
-    } else {
-      // res.write(req.url == "/44");
-      console.log('eeee');
-    }
-    res.end();
-  })
-  .listen(3000);
+const server = createServer((req: IncomingMessage, res: ServerResponse) => {
+  if (req.url?.startsWith('/api/users')) {
+    return userRouter(req, res);
+  }
+
+  res.writeHead(404, { 'Content-Type': 'application/json' });
+  res.end(JSON.stringify({ message: STATUS_MESSAGES.ROUTE_NOT_FOUND }));
+});
+
+server.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});

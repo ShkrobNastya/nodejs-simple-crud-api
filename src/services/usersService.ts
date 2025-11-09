@@ -16,14 +16,13 @@ export const userService = {
   },
 
   createUser: (data: {
-    id: string;
     username: string;
     age: number;
     hobbies: string[];
   }): User | null => {
-    const { id, username, age, hobbies } = data;
+    const { username, age, hobbies } = data;
     if (!username || !age || !hobbies.length) return null;
-    return createUser({ id, username, age, hobbies });
+    return createUser({ username, age, hobbies });
   },
 
   updateUser: (id: string, data: User): User | null => {
