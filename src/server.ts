@@ -1,6 +1,7 @@
 import { createServer, IncomingMessage, ServerResponse } from 'http';
 import { userRouter } from './routes/userRouter';
 import { STATUS_MESSAGES } from './utils/constants';
+import { sendJsonResponse } from './utils/helpers';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -12,8 +13,9 @@ const server = createServer((req: IncomingMessage, res: ServerResponse) => {
     return userRouter(req, res);
   }
 
-  res.writeHead(404, { 'Content-Type': 'application/json' });
-  res.end(JSON.stringify({ message: STATUS_MESSAGES.ROUTE_NOT_FOUND }));
+  return sendJsonResponse(res, 404, {
+    message: STATUS_MESSAGES.ROUTE_NOT_FOUND,
+  });
 });
 
 server.listen(PORT, () => {
